@@ -24,19 +24,33 @@
   </div>
 
 <!-- MARK : main -->
-<main class="container h-screen flex items-center">
-<div class="card bg-base-100 w-72 md:w-96 sm:w-80 mx-auto shadow-xl">
+<main class="container h-screen flex items-center justify-center">
+<div class="card bg-purple-100 w-72 md:w-96 sm:w-80 mx-auto shadow-2xl">
   <figure>
     <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes" />
+      src="background.jpg"
+      alt="Shoes" class="w-full object-cover h-52"/>
   </figure>
   <div class="card-body">
-    <h2 class="card-title">Shoes!</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary">Buy Now</button>
+    <h1 class="card-title" mb-1>PlanPioneer &mdash; Organize Youself</h1>
+    <form data-form>
+      <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />     
+    </form>
+
+<!-- task container -->
+    <div class="form-control">
+      <!-- single-task -->
+      <label class="label cursor-pointer">
+        <span class="label-text">Remember me</span>
+        <input type="checkbox" checked="checked" class="checkbox" />
+      </label>
+
+      <label class="label cursor-pointer bg-zinc-400 rounded-2xl p-2">
+        <span class="label-text">Remember me</span>
+        <input type="checkbox" checked="checked" class="checkbox" />
+      </label>
     </div>
+   
   </div>
 </div>
 </main>
