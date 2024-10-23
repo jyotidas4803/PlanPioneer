@@ -9,8 +9,13 @@
 
     <!-- tabler icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <!-- font family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cabin:ital,wght@0,400..700;1,400..700&family=Figtree:ital,wght@0,300..900;1,300..900&family=Oswald:wght@200..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body class="font-figtree">
    <!-- MARK : Navbar -->
    <div class="navbar bg-base-100">
     <div class="flex-1">
@@ -58,7 +63,7 @@
 <!-- footer -->
 <footer class="footer footer-center bg-base-300 text-base-content p-4">
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by 
+    <p>Copyright © <span class="showDate">2024</span> - All right reserved by 
       <a href="https://github.com/jyotidas4803">Jyoti Das</a></p>
   </aside>
 </footer>
