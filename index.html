@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>PlanPioneer &mdash; Organize Yourself </title>
     <!-- <link rel="stylesheet" href="src/index.css"> -->
+
+    <!-- tabler icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   </head>
   <body>
    <!-- MARK : Navbar -->
@@ -14,21 +17,37 @@
       <a class="btn btn-ghost text-xl">PlanPioneer</a>
     </div>
     <div class="flex-none">
-      <ul class="menu menu-horizontal px-1">
-        <li><a class="font-bold">Github</a></li>
-        <!-- <li>
-          <details>
-            <summary>Parent</summary>
-            <ul class="bg-base-100 rounded-t-none p-2">
-              <li><a>Link 1</a></li>
-              <li><a>Link 2</a></li>
-            </ul>
-          </details>
-        </li> -->
-      </ul>
+     <a href="https://github.com/jyotidas4803/PlanPioneer" class="btn btn-square btn-ghost">
+      <i class="ti ti-brand-github text-2xl"></i>
+     </a>
     </div>
   </div>
 
+<!-- MARK : main -->
+<main class="container h-screen flex items-center">
+<div class="card bg-base-100 w-72 md:w-96 sm:w-80 mx-auto shadow-xl">
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Shoes!</h2>
+    <p>If a dog chews shoes whose shoes does he choose?</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Buy Now</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- footer -->
+<footer class="footer footer-center bg-base-300 text-base-content p-4">
+  <aside>
+    <p>Copyright © {new Date().getFullYear()} - All right reserved by 
+      <a href="https://github.com/jyotidas4803">Jyoti Das</a></p>
+  </aside>
+</footer>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
