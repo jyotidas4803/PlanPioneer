@@ -1,48 +1,48 @@
 import "./index.css";
 
-
-import { titleCase } from "./utils";
 import SingleTask from "./components/SingleTask";
+import { titleCase } from "./utils";
 
-// __DOM manipulation
-const showDateEL = document.querySelector(".showDate");
-const inputEl = document.querySelector("[data-user-value]")
+// === MARK: DOM Selection
 const formEl = document.querySelector("[data-form]");
-const taskContainerEl = document.querySelector("[data-task-container]")
+const inputEl = document.querySelector("[data-user-input]");
+const taskContainerEl = document.querySelector("[data-task-container]");
 
-// vars
-
+// Variables
 const tasks = [];
 
-// current Year
-showDateEL.textContent = new Date().getFullYear()
+function renderTasks() {
+  taskContainerEl.innerHTML = "";
 
-
-
-
-function renderTask() {
-    taskContainerEl.innerHTML = " ";
-    const frag = document.createDocumentFragment()
-    tasks.forEach((task) => {
-        frag.appendChild(SingleTask(task.text))
-    })
-
-    taskContainerEl.appendChild(frag)
+  const frag = document.createDocumentFragment();
+  tasks.forEach((task) => {
+    frag.appendChild(SingleTask(task.text, task.isCompleted));
+  });
+  taskContainerEl.appendChild(frag);
 }
 
 formEl.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!inputEl.value) return;
-    const newTask = {
-        text: titleCase(inputEl.value),
-        isCompleted: false,
-        id: tasks.length
-    };
+  e.preventDefault(); // Prevent refresh
+  if (!inputEl.value) return; // Gaurd Clause
 
-    // adding task
-    tasks.unshift(newTask)
-    renderTask();
+  //  Creating new task
+  const newTask = {
+    text: titleCase(inputEl.value),
+    isCompleted: true,
+    id: tasks.length,
+  };
 
-    console.log(tasks);
-    inputEl.value = " "
-})
+  //  Adding
+  tasks.unshift(newTask);
+
+  renderTasks();
+
+  console.log(tasks);
+
+  //  Clearing input value
+  inputEl.value = "";
+});
+
+// Render the current year
+const showYearEl = document.querySelector(".show-year");
+showYearEl.textContent = new Date().getFullYear();
