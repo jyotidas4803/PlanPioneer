@@ -47,8 +47,9 @@
   <div class="card-body">
     <h1 class="card-title" mb-1>PlanPioneer &mdash; Organize Youself</h1>
    <!-- Form -->
-          <form data-form>
+          <form data-form >
             <input
+            data-user-value
               type="text"
               placeholder="Add task"
               class="input input-bordered w-full max-w-xs"
@@ -56,9 +57,19 @@
           </form>
 
 <!-- task container -->
-    <div class="form-control">
+    <div class="form-control flex flex-col gap-2">
       <!-- single-task -->
       <label class="label cursor-pointer">
+        <span class="label-text">Remember me</span>
+        <input type="checkbox" class="checkbox" />
+      </label>
+
+      <label class="label cursor-pointer bg-zinc-400 rounded-xl p-2">
+        <span class="label-text">Remember me</span>
+        <input type="checkbox" checked="checked" class="checkbox" />
+      </label>
+
+      <!-- <label class="label cursor-pointer bg-zinc-400 rounded-xl p-2">
         <span class="label-text">Remember me</span>
         <input type="checkbox" checked="checked" class="checkbox" />
       </label>
@@ -66,8 +77,9 @@
       <label class="label cursor-pointer bg-zinc-400 rounded-xl p-2">
         <span class="label-text">Remember me</span>
         <input type="checkbox" checked="checked" class="checkbox" />
-      </label>
+      </label> -->
     </div>
+
    
   </div>
 </div>
