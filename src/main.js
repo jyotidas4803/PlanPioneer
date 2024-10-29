@@ -1,7 +1,7 @@
 import "./index.css";
 
 import SingleTask from "./components/SingleTask";
-import { titleCase } from "./utils";
+import { titleCase, randomUd } from "./utils";
 
 // === MARK: DOM Selection
 const formEl = document.querySelector("[data-form]");
@@ -44,7 +44,7 @@ formEl.addEventListener("submit", (e) => {
   const newTask = {
     text: titleCase(inputEl.value),
     isCompleted: true,
-    id: state.length,
+    id:randomUd(),
   };
 
   //  Adding
@@ -61,7 +61,8 @@ formEl.addEventListener("submit", (e) => {
 
 taskContainerEl.addEventListener("click", (e)=>{
 if((e.target.tagName ==="INPUT")){
-  isToggle(++e.target.id);
+  isToggle(e.target.id);
+  state.sort((a, b)=> a.isCompleted -b.isCompleted )
   renderTasks();
 }
 })
