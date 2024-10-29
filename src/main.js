@@ -7,16 +7,18 @@ import { titleCase } from "./utils";
 const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
 const taskContainerEl = document.querySelector("[data-task-container]");
+// const labelEL=document.querySelector("label")
+
 
 // Variables
-const tasks = [];
+const state = [];
 
 function renderTasks() {
   taskContainerEl.innerHTML = "";
 
   const frag = document.createDocumentFragment();
-  tasks.forEach((task) => {
-    frag.appendChild(SingleTask(task.text, task.isCompleted));
+  state.forEach((task) => {
+    frag.appendChild(SingleTask(task.text, task.isCompleted, task.id));
   });
   taskContainerEl.appendChild(frag);
 }
@@ -29,19 +31,26 @@ formEl.addEventListener("submit", (e) => {
   const newTask = {
     text: titleCase(inputEl.value),
     isCompleted: true,
-    id: tasks.length,
+    id: state.length,
   };
 
   //  Adding
-  tasks.unshift(newTask);
+  state.unshift(newTask);
 
   renderTasks();
 
-  console.log(tasks);
+  console.log(state);
 
   //  Clearing input value
   inputEl.value = "";
 });
+
+taskContainerEl.addEventListener("click", (e)=>{
+if((e.target.tagName ==="INPUT")){
+  console.log(e.target.id)
+
+}
+})
 
 // Render the current year
 const showYearEl = document.querySelector(".show-year");
