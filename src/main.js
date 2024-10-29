@@ -11,7 +11,20 @@ const taskContainerEl = document.querySelector("[data-task-container]");
 
 
 // Variables
-const state = [];
+let state = [];
+
+function isToggle(id){
+  console.log(state)
+
+  state = state.map(task=>{
+    if(id===task.id){
+     return {...task, isCompleted:!task.isCompleted}
+    }
+    return task;
+  });
+  // console.log(output)
+}
+
 
 function renderTasks() {
   taskContainerEl.innerHTML = "";
@@ -38,6 +51,7 @@ formEl.addEventListener("submit", (e) => {
   state.unshift(newTask);
 
   renderTasks();
+ 
 
   console.log(state);
 
@@ -47,8 +61,8 @@ formEl.addEventListener("submit", (e) => {
 
 taskContainerEl.addEventListener("click", (e)=>{
 if((e.target.tagName ==="INPUT")){
-  console.log(e.target.id)
-
+  isToggle(++e.target.id);
+  renderTasks();
 }
 })
 
