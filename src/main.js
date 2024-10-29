@@ -7,25 +7,24 @@ import { titleCase, randomUd } from "./utils";
 const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
 const taskContainerEl = document.querySelector("[data-task-container]");
-// const labelEL=document.querySelector("label")
+
 
 
 // Variables
 let state = [];
 
 function isToggle(id){
-  console.log(state)
-
-  state = state.map(task=>{
+  state = state.map((task)=>{
     if(id===task.id){
-     return {...task, isCompleted:!task.isCompleted}
+     return {...task, isCompleted:!task.isCompleted};
     }
+
     return task;
   });
   // console.log(output)
 }
 
-
+// MARK: Render
 function renderTasks() {
   taskContainerEl.innerHTML = "";
 
@@ -36,6 +35,8 @@ function renderTasks() {
   taskContainerEl.appendChild(frag);
 }
 
+
+// MARK: Listener
 formEl.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevent refresh
   if (!inputEl.value) return; // Gaurd Clause
@@ -43,7 +44,7 @@ formEl.addEventListener("submit", (e) => {
   //  Creating new task
   const newTask = {
     text: titleCase(inputEl.value),
-    isCompleted: true,
+    isCompleted: false,
     id:randomUd(),
   };
 
@@ -52,20 +53,18 @@ formEl.addEventListener("submit", (e) => {
 
   renderTasks();
  
-
-  console.log(state);
-
-  //  Clearing input value
   inputEl.value = "";
 });
 
 taskContainerEl.addEventListener("click", (e)=>{
-if((e.target.tagName ==="INPUT")){
+if(e.target.tagName ==="INPUT"){
   isToggle(e.target.id);
-  state.sort((a, b)=> a.isCompleted -b.isCompleted )
+
+   // uncompleted first
+  state.sort((a, b)=> a.isCompleted - b.isCompleted );
   renderTasks();
 }
-})
+});
 
 // Render the current year
 const showYearEl = document.querySelector(".show-year");
