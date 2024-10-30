@@ -3,15 +3,45 @@ import "./index.css";
 import SingleTask from "./components/SingleTask";
 import { titleCase, randomUd } from "./utils";
 
+// package
+import localforage from "localforage";
+
 // === MARK: DOM Selection
 const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
 const taskContainerEl = document.querySelector("[data-task-container]");
 
-
+// localforage.setItem("button","structs");
+// console.log("button").then(console.log)
 
 // Variables
 let state = [];
+
+localforage.getItem("tasks").then((data)=>{
+  state=data || [];
+  renderTasks();
+})
+// localforage.setDriver(localforage.LOCALSTORAGE)
+
+// localforage.setItem("button", "hibernate")
+// localforage.setItem("exold", "ARPANet")
+
+
+// function
+function updateLocal(){
+  localforage.setItem("tasks",state);
+
+}
+
+
+function  clearTask(){
+  state.length=0;
+  // localforage.setItem("tasks",state);
+  updateLocal()
+  renderTasks();
+  inputEl.value="";
+}
+
 
 function isToggle(id){
   state = state.map((task)=>{
@@ -21,7 +51,8 @@ function isToggle(id){
 
     return task;
   });
-  // console.log(output)
+  // localforage.setItem("tasks",state);
+  updateLocal()
 }
 
 // MARK: Render
@@ -33,6 +64,8 @@ function renderTasks() {
     frag.appendChild(SingleTask(task.text, task.isCompleted, task.id));
   });
   taskContainerEl.appendChild(frag);
+  updateLocal()
+  // localforage.setItem("tasks",state);
 }
 
 
@@ -51,6 +84,9 @@ formEl.addEventListener("submit", (e) => {
   //  Adding
   state.unshift(newTask);
 
+  // localforage.setItem("tasks",state);
+  updateLocal();
+
   renderTasks();
  
   inputEl.value = "";
@@ -62,7 +98,12 @@ if(e.target.tagName ==="INPUT"){
 
    // uncompleted first
   state.sort((a, b)=> a.isCompleted - b.isCompleted );
+
+  // localforage.setItem("tasks",state);
+  updateLocal()
+
   renderTasks();
+
 }
 });
 
