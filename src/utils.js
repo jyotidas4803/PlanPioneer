@@ -1,16 +1,14 @@
+// short-uuid, uuid
 import shortUUID from "short-uuid";
-import  startCase  from "lodash/startCase";
-import  lowerCase  from "lodash/lowerCase";
-import { sortBy } from "lodash";
-console.log(startCase("my name is jyoti"))
+import startCase from "lodash/startCase";
+import lowerCase from "lodash/lowerCase";
+
+console.log(startCase("hey there how are you"));
 
 export function titleCase(str) {
-    return startCase(lowerCase(str))
-  }
+  return startCase(lowerCase(str));
+}
 
-
-  export function randomUd(){
-    return shortUUID.generate();
-  }
-
-  // state=sortBy("state", isCompleted)
+export function randomID() {
+  return shortUUID.generate();
+}

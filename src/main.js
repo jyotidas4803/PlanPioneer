@@ -1,58 +1,50 @@
 import "./index.css";
-
-import SingleTask from "./components/SingleTask";
-import { titleCase, randomUd } from "./utils";
-
-// package
 import localforage from "localforage";
+import { sortBy as sort } from "lodash";
+import SingleTask from "./components/SingleTask";
+import { titleCase, randomID } from "./utils";
+import { formEl, inputEl, taskContainerEl } from "./domSelection";
 
-// === MARK: DOM Selection
-const formEl = document.querySelector("[data-form]");
-const inputEl = document.querySelector("[data-user-input]");
-const taskContainerEl = document.querySelector("[data-task-container]");
-
-// localforage.setItem("button","structs");
-// console.log("button").then(console.log)
-
-// Variables
+// MARK: State
 let state = [];
 
-localforage.getItem("tasks").then((data)=>{
-  state=data || [];
-  renderTasks();
-})
-// localforage.setDriver(localforage.LOCALSTORAGE)
+localforage.setDriver(localforage.LOCALSTORAGE);
+function updateLocal() {
+  localforage.setItem("tasks", state);
+}
 
-// localforage.setItem("button", "hibernate")
-// localforage.setItem("exold", "ARPANet")
+localforage.getItem("tasks").then((data) => {
+  state = data || [];
+  renderTasks();
+});
 
 
 // function
-function updateLocal(){
-  localforage.setItem("tasks",state);
 
+function updateClearButtonVisibility() {
+  const clearButton = document.getElementById("clear-checked");
+  const anyChecked = state.some(task => task.isCompleted);
+  clearButton.style.display = anyChecked ? "block" : "none"; // Show or hide the button
 }
 
 
-function  clearTask(){
-  state.length=0;
-  // localforage.setItem("tasks",state);
-  updateLocal()
+function clearTasks() {
+  state.length = 0;
+  updateLocal();
   renderTasks();
-  inputEl.value="";
+  inputEl.value = "";
 }
 
-
-function isToggle(id){
-  state = state.map((task)=>{
-    if(id===task.id){
-     return {...task, isCompleted:!task.isCompleted};
+function toggleCompleted(id) {
+  state = state.map((task) => {
+    if (id === task.id) {
+      return { ...task, isCompleted: !task.isCompleted };
     }
 
     return task;
   });
-  // localforage.setItem("tasks",state);
-  updateLocal()
+
+  updateLocal();
 }
 
 // MARK: Render
@@ -63,48 +55,54 @@ function renderTasks() {
   state.forEach((task) => {
     frag.appendChild(SingleTask(task.text, task.isCompleted, task.id));
   });
+
   taskContainerEl.appendChild(frag);
-  updateLocal()
-  // localforage.setItem("tasks",state);
+  updateClearButtonVisibility();
 }
 
-
-// MARK: Listener
+// MARK: Listeners
+// On new task add
 formEl.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevent refresh
   if (!inputEl.value) return; // Gaurd Clause
+
+  if (inputEl.value === ":clearall") return clearTasks();
 
   //  Creating new task
   const newTask = {
     text: titleCase(inputEl.value),
     isCompleted: false,
-    id:randomUd(),
+    id: randomID(),
   };
 
   //  Adding
   state.unshift(newTask);
 
-  // localforage.setItem("tasks",state);
+  // localforage.setItem("tasks", state);
   updateLocal();
 
   renderTasks();
- 
+
+  //  Clearing input value
   inputEl.value = "";
 });
 
-taskContainerEl.addEventListener("click", (e)=>{
-if(e.target.tagName ==="INPUT"){
-  isToggle(e.target.id);
+document.getElementById("clear-checked").addEventListener("click", () => {
+  state = state.filter(task => !task.isCompleted); // Remove checked tasks from the state
+  updateLocal(); // Update local storage
+  renderTasks(); // Re-render tasks
+  updateClearButtonVisibility(); // Update button visibility
+});
 
-   // uncompleted first
-  state.sort((a, b)=> a.isCompleted - b.isCompleted );
 
-  // localforage.setItem("tasks",state);
-  updateLocal()
-
-  renderTasks();
-
-}
+// On task toggle
+taskContainerEl.addEventListener("click", (e) => {
+  if (e.target.tagName === "INPUT") {
+    toggleCompleted(e.target.id); // Change the state
+    state = sort(state, ["isCompleted"]); // Sort on completed
+    updateLocal();
+    renderTasks();
+  }
 });
 
 // Render the current year
