@@ -5,7 +5,7 @@ Welcome to **PlanPioneer**!
 
 ## Preview
 
-![image](preview.png)
+![image](public/preview.png)
 
 ## Features
 
