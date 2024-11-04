@@ -3,7 +3,7 @@ import localforage from "localforage";
 import { sortBy as sort } from "lodash";
 import SingleTask from "./components/SingleTask";
 import { titleCase, randomID } from "./utils";
-import { formEl, inputEl, taskContainerEl } from "./domSelection";
+import { formEl, inputEl, taskContainerEl, clearButton } from "./domSelection";
 
 // MARK: State
 let state = [];
@@ -22,18 +22,17 @@ localforage.getItem("tasks").then((data) => {
 // function
 
 function updateClearButtonVisibility() {
-  const clearButton = document.getElementById("clear-checked");
   const anyChecked = state.some(task => task.isCompleted);
   clearButton.style.display = anyChecked ? "block" : "none"; // Show or hide the button
 }
 
 
-function clearTasks() {
-  state.length = 0;
-  updateLocal();
-  renderTasks();
-  inputEl.value = "";
-}
+// function clearTasks() {
+//   state.length = 0;
+//   updateLocal();
+//   renderTasks();
+//   inputEl.value = "";
+// }
 
 function toggleCompleted(id) {
   state = state.map((task) => {
@@ -66,7 +65,7 @@ formEl.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevent refresh
   if (!inputEl.value) return; // Gaurd Clause
 
-  if (inputEl.value === ":clearall") return clearTasks();
+  // if (inputEl.value === ":clearall") return clearTasks();
 
   //  Creating new task
   const newTask = {
@@ -87,7 +86,7 @@ formEl.addEventListener("submit", (e) => {
   inputEl.value = "";
 });
 
-document.getElementById("clear-checked").addEventListener("click", () => {
+clearButton.addEventListener("click", () => {
   state = state.filter(task => !task.isCompleted); // Remove checked tasks from the state
   updateLocal(); // Update local storage
   renderTasks(); // Re-render tasks
